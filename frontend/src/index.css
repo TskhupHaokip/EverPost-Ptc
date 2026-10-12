@@ -11,3 +11,24 @@ body,root {
   background: linear-gradient(135deg, #351A5E, #213044);
   border-radius: 15px;
 }
+
+.toast-fade {
+  animation: toastFade 3s forwards;
+}
+
+@keyframes toastFade {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  80% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
