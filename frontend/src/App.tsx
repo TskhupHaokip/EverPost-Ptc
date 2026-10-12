@@ -1,9 +1,10 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 import Base from "./pages/Base";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
+import { Logout, RegisterLogout } from "./components/common/Logout";
+
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Routes>
         {/* Public pages */}
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<RegisterLogout />} />
+        <Route path="/logout" element={<Logout />} />
 
         {/* All child routes are protected */}
         <Route
@@ -24,9 +26,12 @@ function App() {
           }
         >
           <Route path="/home" element={<Home />} />
+          
+
           {/* Add more protected pages here */}
           {/* <Route path="/profile" element={<Profile />} /> */}
           {/* <Route path="/settings" element={<Settings />} /> */}
+          
         </Route>
       </Routes>
     </div>
