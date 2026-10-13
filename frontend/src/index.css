@@ -16,6 +16,11 @@ body,root {
   animation: toastFade 3s forwards;
 }
 
+#profile {
+  background:linear-gradient(135deg, #c7cfcb,#6332ad,#b4c7cf86 ) ;
+}
+
+
 @keyframes toastFade {
   0% {
     opacity: 1;

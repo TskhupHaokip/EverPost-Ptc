@@ -4,13 +4,19 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import { Logout, RegisterLogout } from "./components/common/Logout";
-
+import { useState } from "react";
+import { User } from "./models/model";
+import Page404 from "./pages/Page404";
+import ProfilePage from "./pages/ProfilePage";
+import ViewProfilePage from "./pages/ViewProfilePage";
 
 function App() {
+  const [CurrentUser, setCurrentUser] = useState<User>();
+
   return (
     <div className="flex flex-col min-h-screen p-2">
       <Base />
-      
+
       <Routes>
         {/* Public pages */}
         <Route path="/login" element={<Login />} />
@@ -25,12 +31,19 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={
+              <Home CurrentUser={CurrentUser} setCurrentUser={setCurrentUser} />
+            }
+          />
 
-          {/* Add more protected pages here */}
-          {/* <Route path="/profile" element={<Profile />} /> */}
-          {/* <Route path="/settings" element={<Settings />} /> */}
+          <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route path="/view-profile" element={<ViewProfilePage user_id={1}/>} ></Route>
+
         </Route>
+
+        <Route path="*" element={<Page404 />}></Route>
       </Routes>
     </div>
   );

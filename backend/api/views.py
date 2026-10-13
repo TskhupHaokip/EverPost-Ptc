@@ -4,12 +4,39 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from .serializers import UserSerializer
+from .serializers import ProfileSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
+from django.core.exceptions import ValidationError
+from .models import Profile
 
 User = get_user_model()
+
+
+class CheckProfileView(APIView):
+    serializer_class = ProfileSerializer
+
+    def get(self, request, pk: int):
+        profile = Profile.objects.get(id=pk)
+        serializer = self.serializer_class(
+            profile,
+            context={"request": request}
+        )
+        return Response(serializer.data)
+
+      
+
+class ProfileView(ModelViewSet):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    http_method_names = ["get", "put", "patch", "delete","head", "options"]
+
+    # Optional: Filter the queryset so users can only see/edit their own profile
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
+
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -41,6 +68,12 @@ class RegisterView(CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
+    def perform_create(self, serializer):
+        user = serializer.save()
+        Profile.objects.create(
+            user=user,
+            nick_name=user.username
+        )
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
