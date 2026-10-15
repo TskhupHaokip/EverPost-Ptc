@@ -10,6 +10,8 @@ export const Title = (text:string) => {
     .map(Capitalize)
     .join(" ")
 }
+
+export const FirstCapName = (text: string): string => text[0].toUpperCase() ?? "";
     
 export const CloseSidebar = () => {
     const drawer = document.getElementById("my-drawer-1") as HTMLInputElement | null
@@ -19,3 +21,4 @@ export const CloseSidebar = () => {
      }
 
 }
+

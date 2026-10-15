@@ -9,6 +9,8 @@ import { User } from "./models/model";
 import Page404 from "./pages/Page404";
 import ProfilePage from "./pages/ProfilePage";
 import ViewProfilePage from "./pages/ViewProfilePage";
+import FeedsPage from "./pages/FeedsPage";
+
 
 function App() {
   const [CurrentUser, setCurrentUser] = useState<User>();
@@ -37,9 +39,10 @@ function App() {
               <Home CurrentUser={CurrentUser} setCurrentUser={setCurrentUser} />
             }
           />
+          <Route path="/feeds" element={<FeedsPage />}></Route>
 
           <Route path="/profile" element={<ProfilePage />}></Route>
-          <Route path="/view-profile" element={<ViewProfilePage user_id={1}/>} ></Route>
+          <Route path="/view-profile" element={<ViewProfilePage user_id={2}/>} ></Route>
 
         </Route>
 
