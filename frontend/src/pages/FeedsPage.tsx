@@ -48,6 +48,7 @@ const FeedsPage = () => {
           <div>Empty Posts No Post yet</div>
         )}
       </div>
+      <FeedContents />
     </div>
   );
 };

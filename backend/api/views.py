@@ -82,3 +82,4 @@ class UserViewSet(ModelViewSet):
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
+        

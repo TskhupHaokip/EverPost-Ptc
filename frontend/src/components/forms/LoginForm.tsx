@@ -6,7 +6,9 @@ import Toast from "../common/Toast";
 import { Title } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
 
+
 const LoginForm = () => {
+ 
   const [UserName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -35,6 +37,7 @@ const LoginForm = () => {
       setToastMessage(`Welcome! ${Title(UserName)}`);
       setToastStatus(true);
       setShowToast(true);
+    
 
       // Navigate after the toast has had time to display.
       setTimeout(() => navigate("/home"), 1500);

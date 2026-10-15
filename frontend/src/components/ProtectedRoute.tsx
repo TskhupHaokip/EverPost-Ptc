@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import ApiClient from "../ApiClient";
+import { useCurrentUser } from "../contexts/UserContext";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,6 +11,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const { user, setUser } = useCurrentUser();
 
   useEffect(() => {
     let isMounted = true;
@@ -30,6 +32,16 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         // If access token is valid, authenticate immediately
         if (tokenExpiration && tokenExpiration > now) {
           if (isMounted) setIsAuthenticated(true);
+
+          ApiClient.get("/api/user/my-account/")
+          .then((res) => {
+            console.log(res.data)
+            setUser(res.data[0])
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+
           return;
         }
 
@@ -47,6 +59,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         if (res.status === 200 && isMounted) {
           localStorage.setItem(ACCESS_TOKEN, res.data.access);
           setIsAuthenticated(true);
+          
         } else if (isMounted) {
           setIsAuthenticated(false);
         }
@@ -61,7 +74,9 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [setUser]);
+
+  console.log("current user : ",user)
 
   if (isAuthenticated === null) {
     return <div>Loading...</div>;

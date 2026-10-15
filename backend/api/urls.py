@@ -6,7 +6,8 @@ from .views import UserViewSet
 from django.conf import settings
 
 router = DefaultRouter()
-router.register("users", UserViewSet, basename="users")
+
+router.register("user/my-account", UserViewSet, basename="users")
 
 router.register("user/profile",ProfileView,basename="profile")
 
