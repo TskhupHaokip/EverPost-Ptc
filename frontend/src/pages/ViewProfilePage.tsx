@@ -65,7 +65,7 @@ const ViewProfilePage = ({ user_id }: ViewProfilePageProps) => {
   }
 
   return (
-    <div className="flex flex-1 p-1 flex-col items-center">
+    <div className="flex flex-1 p-1 flex-col gap-2 items-center">
       <ProfileCard profile={profile} />
       {Posts && Posts.length > 0 ? (
         Posts.map((post) => (

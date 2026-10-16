@@ -7,6 +7,7 @@ class LikeSerializer(serializers.ModelSerializer):
             read_only=True,
             slug_field="username"
         )
+    user_id = serializers.IntegerField(source="user.id", read_only=True)
     class Meta:
         model = Like
         fields = "__all__"

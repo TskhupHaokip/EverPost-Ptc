@@ -36,7 +36,6 @@ class AllPostView(APIView):
     serializer_class = PostSerializer
     permission_classes = [AllowAny]
 
-
     def get(self,request):
         posts = Post.objects.all()
        
@@ -46,7 +45,6 @@ class AllPostView(APIView):
    
         return Response(serializers.data)
         
-   
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
@@ -64,14 +62,12 @@ class PostViewSet(ModelViewSet):
             {
                 "username": like.user.username,
                 "timestamp": like.timestamp,
+                "user_id":like.user.id
             }
             for like in likes 
         ]
 
-        
-
         return Response(data)
-    
     
     def get_queryset(self):
         if self.action == "likes":
@@ -79,7 +75,6 @@ class PostViewSet(ModelViewSet):
 
         return Post.objects.filter(user=self.request.user)
       
-
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 

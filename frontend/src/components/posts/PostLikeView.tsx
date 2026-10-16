@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import PostButton from "./PostButton";
 import ProfilePics from "../ProfilePics";
-import ApiClient from "../../ApiClient";
+import { Link } from "react-router-dom";
 
-const Data = [
-  "Khup",
-  "peter",
-  "Jonny",
-  "IamThe",
-  "Pagnitaion Lk",
-  "H ashjhshjsajhhjsjh",
-];
+interface UserLikeData {
+  id: number;
+  username: string;
+}
 
-const PostLikeView = () => {
+interface UserLikeProps {
+  UserLikeNames?: string[] | null;
+  UserLikeIds?: number | null;
+  UserLikeData?: UserLikeData[];
+}
+
+const PostLikeView = ({ UserLikeData }: UserLikeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  ApiClient.get("")
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,13 +46,19 @@ const PostLikeView = () => {
       {isOpen && (
         <div className="absolute right-0 top-full z-50 mt-2 max-h-55 w-65 max-w-90 overflow-y-auto rounded-lg border bg-slate-900 p-2 shadow-lg backdrop-blur-md">
           <ul className="flex flex-1 flex-col gap-2 text-lg font-semibold text-cyan-300">
-            {Data.map((name, index) => (
+            {UserLikeData && UserLikeData.map((user) => (
               <li
-                key={`${name}-${index}`}
+                key={user.id}
                 className="flex w-full items-center rounded-lg px-2 py-1 hover:bg-slate-950"
               >
                 <ProfilePics />
-                <p className="px-2 py-1">{name}</p>
+
+                <Link
+                  to={`/profile/${user.id}`}
+                  className="px-2 py-1  w-full hover:text-white"
+                >
+                  {user.username}
+                </Link>
               </li>
             ))}
           </ul>

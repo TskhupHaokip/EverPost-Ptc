@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ViewProfilePage from "./pages/ViewProfilePage";
 import FeedsPage from "./pages/FeedsPage";
 import { UserProvider } from "./contexts/UserProvider";
+import ProfileRoute from "./pages/ProfileRouter";
 
 function App() {
   return (
@@ -34,11 +35,10 @@ function App() {
             <Route path="/feeds" element={<FeedsPage />}></Route>
 
             <Route path="/profile" element={<ProfilePage />}></Route>
-            <Route
-              path="/view-profile"
-              element={<ViewProfilePage user_id={3} />}
-            ></Route>
+            
           </Route>
+
+          <Route path="/profile/:user_id" element={<ProfileRoute />} />
 
           <Route path="*" element={<Page404 />}></Route>
         </Routes>{" "}
