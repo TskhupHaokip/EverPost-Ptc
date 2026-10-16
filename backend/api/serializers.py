@@ -2,9 +2,15 @@ from rest_framework import serializers
 from .models import User,Profile
 
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(
+            read_only=True,
+            slug_field="username"
+        )
     class Meta:
         model = Profile
-        exclude = ["user"]
+        fields = "__all__"
+        read_only_fields = ["user"]
+        
        
 
 class UserSerializer(serializers.ModelSerializer):

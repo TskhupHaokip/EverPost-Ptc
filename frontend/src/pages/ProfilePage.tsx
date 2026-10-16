@@ -36,7 +36,7 @@ const ProfilePage = () => {
   console.log(Posts);
   return (
     <div id="profile" className="flex flex-1 p-2 gap-2 flex-col items-center">
-      <ProfileCard profile={Profile} username="Khup" isOwnProfile={true} />
+      <ProfileCard profile={Profile}  />
       {Posts && Posts.length > 0 ? (
         Posts.map((post) => (
           <PostCard key={post.id} Post={post} isOwnPost={true} />

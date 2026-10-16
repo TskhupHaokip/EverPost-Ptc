@@ -1,10 +1,11 @@
 import { useState } from "react";
 import PostButton from "./PostButton";
+import PostLikeView from "./PostLikeView";
 
 interface PostStatsProps {
-  has_like: boolean;
-  num_of_likes: number;
-  num_of_comments: number;
+  has_like?: boolean;
+  num_of_likes?: number;
+  num_of_comments?: number;
 }
 
 const PostStats = ({
@@ -32,7 +33,7 @@ const PostStats = ({
           onClick={handleLike}
         
           children={<img
-            src={isLiked ? "/UnLike.svg" : "/Like.svg"}
+            src={isLiked ? "/Like.svg" : "/UnLike.svg"}
             alt=""
             className="h-5 w-5"
           />}
@@ -50,10 +51,9 @@ const PostStats = ({
       <PostButton label="Share post"
         children={<img src="/Share1.svg" alt=""  />}
       />
+      <PostLikeView />
 
-      <PostButton label="View all likes" className="ml-auto"
-        children={<img src="/EyeIcon.svg" alt=""  />}
-      />
+    
 
     </div>
   );

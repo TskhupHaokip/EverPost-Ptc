@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import type { ProfileProps } from "../models/model";
+import { useCurrentUser } from "../contexts/UserContext";
 
 interface ProfileCardProps {
   profile: ProfileProps;
-  isOwnProfile: boolean;
-  username?: string;
 }
 
 interface PreviewImage {
@@ -70,12 +69,15 @@ const ImageDialog = ({
 };
 
 /* ---------- Profile card ---------- */
-const ProfileCard = ({ profile, isOwnProfile, username }: ProfileCardProps) => {
+const ProfileCard = ({ profile }: ProfileCardProps) => {
   const [preview, setPreview] = useState<PreviewImage | null>(null);
 
+  const { user } = useCurrentUser();
+  const isOwnProfile = user?.username === profile.user;
+
   const coverAlt = `${profile.nick_name}'s cover`;
-  console.log(profile.pic)
-  console.log(profile.cover)
+  console.log(profile.pic);
+  console.log(profile.cover);
 
   return (
     <>
@@ -136,9 +138,9 @@ const ProfileCard = ({ profile, isOwnProfile, username }: ProfileCardProps) => {
 
           {/* Identity */}
           <div className="flex flex-col items-center gap-1">
-            {username && (
+            {profile.user && (
               <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white md:text-2xl">
-                {username}
+                {profile.user}
               </h2>
             )}
             <span className="text-xs font-semibold tracking-wide text-indigo-600 dark:text-indigo-400 md:text-sm">

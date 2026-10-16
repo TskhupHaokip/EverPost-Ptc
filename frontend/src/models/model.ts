@@ -18,6 +18,7 @@ export interface ProfileProps {
   bio: string;
   pic: string;
   cover: string;
+  user:string
 }
 
 export interface PostProps {

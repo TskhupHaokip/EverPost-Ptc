@@ -5,10 +5,12 @@ import FeedHeader from "../components/feeds/FeedHeader";
 import type { PostProps, ProfileProps } from "../models/model";
 import Skeleton1 from "../components/Skeleton1";
 import PostCard from "../components/PostCard";
+import { useCurrentUser } from "../contexts/UserContext";
 
 const FeedsPage = () => {
   const [Profile, setProfile] = useState<ProfileProps | null>(null);
   const [Posts, setPosts] = useState<PostProps[] | null>(null);
+  const { user: User } = useCurrentUser();
 
   useEffect(() => {
     ApiClient.get("/api/user/profile/")
@@ -42,7 +44,11 @@ const FeedsPage = () => {
 
         {Posts && Posts.length > 0 ? (
           Posts.map((post) => (
-            <PostCard key={post.id} Post={post} isOwnPost={true} />
+            <PostCard
+              key={post.id}
+              Post={post}
+              isOwnPost={User?.username === post.user}
+            />
           ))
         ) : (
           <div>Empty Posts No Post yet</div>

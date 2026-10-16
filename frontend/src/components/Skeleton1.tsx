@@ -5,7 +5,7 @@ const Skeleton1 = () => {
       <div className="skeleton h-4 w-28"></div>
       <div className="skeleton h-4 w-full"></div>
       <div className="skeleton h-4 w-full"></div>
-      <p>Profile not found or loading...</p>
+      <p>Profile not found / Invalid Profile or loading...</p>
     </div>
   );
 };

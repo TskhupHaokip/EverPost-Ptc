@@ -11,12 +11,12 @@ const PostImageCard = ({ ImageUrl }: PostImageCardProps) => {
   return (
     <>
       {/* Image inside the post */}
-      <div className="w-full overflow-hidden rounded-2xl">
+      <div className="flex w-full overflow-hidden items-center justify-center border-t pt-1  rounded-2xl">
         <img
           src={ImageUrl}
           alt="Post"
           onClick={() => setIsOpen(true)}
-          className="block w-full cursor-zoom-in object-cover"
+          className="block  cursor-zoom-in object-contain"
         />
       </div>
 

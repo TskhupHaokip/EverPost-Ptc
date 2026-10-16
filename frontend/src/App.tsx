@@ -36,7 +36,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />}></Route>
             <Route
               path="/view-profile"
-              element={<ViewProfilePage user_id={2} />}
+              element={<ViewProfilePage user_id={3} />}
             ></Route>
           </Route>
 

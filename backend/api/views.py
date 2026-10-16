@@ -13,20 +13,21 @@ from .models import Profile
 
 User = get_user_model()
 
-
 class CheckProfileView(APIView):
     serializer_class = ProfileSerializer
 
     def get(self, request, pk: int):
-        profile = Profile.objects.get(id=pk)
-        serializer = self.serializer_class(
-            profile,
-            context={"request": request}
-        )
-        return Response(serializer.data)
+        profile = Profile.objects.get(user_id=pk)
+        if profile:
+            serializer = self.serializer_class(
+                profile,
+                context={"request": request}
+            )
+            return Response(serializer.data)
+        return Response({"status":False,"message":"Profile Not Found Or Un-Available"},
+                        status=status.HTTP_400_BAD_REQUEST)
 
       
-
 class ProfileView(ModelViewSet):
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
