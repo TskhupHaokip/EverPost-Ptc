@@ -6,21 +6,18 @@ import Toast from "../common/Toast";
 import { Title } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
 
-
 const LoginForm = () => {
- 
   const [UserName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
 
   const [toastMessage, setToastMessage] = useState("");
   const [toastStatus, setToastStatus] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [Errors,setErros] = useState("")
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -37,10 +34,9 @@ const LoginForm = () => {
       setToastMessage(`Welcome! ${Title(UserName)}`);
       setToastStatus(true);
       setShowToast(true);
-    
 
       // Navigate after the toast has had time to display.
-      setTimeout(() => navigate("/home"), 1500);
+      setTimeout(() => navigate("/home"), 100);
     } catch (error: unknown) {
       let message = "Login failed. Please try again.";
 
@@ -50,11 +46,10 @@ const LoginForm = () => {
         message =
           typeof responseData === "string"
             ? responseData
-            : responseData?.detail ??
-              responseData?.message ??
-              message;
+            : (responseData?.detail ?? responseData?.message ?? message);
       } else if (error instanceof Error) {
         message = error.message;
+        setErros(message)
       }
 
       setToastMessage(message);
@@ -65,12 +60,7 @@ const LoginForm = () => {
 
   return (
     <>
-      {showToast && (
-        <Toast
-          message={toastMessage}
-          status={toastStatus}
-        />
-      )}
+      {showToast && <Toast message={toastMessage} status={toastStatus} />}
 
       <fieldset className="fieldset bg-base-200 justify-center items-center border-base-300 text-lg rounded-box w-lg border p-4">
         <legend className="fieldset-legend">Login</legend>
@@ -98,11 +88,9 @@ const LoginForm = () => {
             value={Password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {Errors && (<div className="p-1 text-red-400">{Errors}</div>)}
 
-          <button
-            type="submit"
-            className="btn btn-neutral w-[40%] mt-4"
-          >
+          <button type="submit" className="btn btn-neutral w-[40%] mt-4">
             Login
           </button>
         </form>

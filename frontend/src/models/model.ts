@@ -29,3 +29,13 @@ export interface PostProps {
   updated_at: string;
   user: string;
 }
+
+
+
+export interface FakeFutureProps {
+  user_id: number;
+  target_id: number;
+  messages: string;
+  CheckAvailability: Date;
+  triggerDate: Date;
+}
