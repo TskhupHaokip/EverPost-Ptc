@@ -1,6 +1,7 @@
 import { usePost } from "../../contexts/PostContext";
 import FormatRelativeTime from "../../utils/FormatRelativeTime";
 import { FirstCapName } from "../../utils/util";
+import PostActions from "./PostActions";
 
 interface props {
   isOwnPost: boolean;
@@ -24,15 +25,7 @@ const PostHeader = ({ isOwnPost }: props) => {
       </div>
 
       <div className="flex ml-auto  font-semibold  items-center justify-end ">
-        {isOwnPost ? (
-          <button className="rounded-lg px-3 py-1.5 text-sm font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-50 active:bg-blue-100">
-            Edit
-          </button>
-        ) : (
-          <button className="rounded-lg px-3 py-1.5 text-sm font-semibold text-gray-600 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200">
-            Hide
-          </button>
-        )}
+        <PostActions Post_id={Post.id} isOwnPost={isOwnPost}/>
       </div>
     </div>
   );

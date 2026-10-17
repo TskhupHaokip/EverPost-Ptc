@@ -38,7 +38,7 @@ const FeedsPage = () => {
 
   return (
     <div className="flex flex-1 p-2 gap-2 flex-col items-center">
-      <div className="flex flex-col w-full max-w-[55%] justify-center items-center p-1 rounded-2xl bg-white gap-2">
+      <div  className="flex flex-col w-full max-w-[55%] justify-center items-center p-1 rounded-2xl bg-white gap-2">
         <FeedHeader ProfileimageUrl={Profile.pic} />
         <FeedContents />
 

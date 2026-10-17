@@ -21,6 +21,7 @@ const PostCard = ({ Post, isOwnPost }: PostCardProps) => {
   const [isLoading, setisLoading] = useState(true);
   const [hasLiked, setHasLiked] = useState<boolean | undefined>(undefined);
   const [UserLikeData, setUserLikeData] = useState<UserLikeData[]>([]);
+  
   useEffect(() => {
     ApiClient.get(`users/posts/${Post.id}/likes/`)
       .then((res) => {
@@ -53,7 +54,7 @@ const PostCard = ({ Post, isOwnPost }: PostCardProps) => {
 
   return (
     <PostContext.Provider value={Post}>
-      <article className="w-full max-w-3xl p-3 border-gray-200 shadow-sm rounded-2xl bg-slate-800">
+      <article id={`post-${Post.id}`} className="w-full max-w-3xl p-3 border-gray-200 shadow-sm rounded-2xl bg-slate-800">
         <PostHeader isOwnPost={isOwnPost} />
         <PostContent />
         <PostStats
