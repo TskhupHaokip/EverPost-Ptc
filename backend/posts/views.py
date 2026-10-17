@@ -58,7 +58,6 @@ class GetAllUserPostsView(APIView):
    
         return Response(serializers.data)
 
-   
 class AllPostView(APIView):
     serializer_class = PostSerializer
     permission_classes = [AllowAny]
