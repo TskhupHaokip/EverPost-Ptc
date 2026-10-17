@@ -6,6 +6,7 @@ from .serializers import LikeSerializer, PostSerializer
 from .models import Post,Like
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django.shortcuts import get_object_or_404
 
 class LikeViewSet(ModelViewSet):
     queryset = Like.objects.all()
@@ -16,6 +17,32 @@ class LikeViewSet(ModelViewSet):
    
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    @action(detail=False, methods=["post"], url_path="toggle")
+    def toggle_like(self, request):
+        post_id = request.data.get("post_id")
+
+        post = get_object_or_404(Post, id=post_id)
+
+        like = Like.objects.filter(
+            user=request.user,
+            post=post
+        ).first()
+
+        if like:
+            like.delete()
+            is_liked = False
+            print("You Unlike-Post Id: ",post.id)
+        else:
+            Like.objects.create(user=request.user, post=post)
+            is_liked = True
+            print("You like-Post Id: ",post.id)
+
+        return Response({
+            "has_like":is_liked,
+            "num_of_likes":post.likes.count(),
+            "message":"You Like The Post" if is_liked else "You Un-Like The Post"
+        })
 
 
 class GetAllUserPostsView(APIView):

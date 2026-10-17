@@ -6,10 +6,10 @@ import Home from "./pages/Home";
 import { Logout, RegisterLogout } from "./components/common/Logout";
 import Page404 from "./pages/Page404";
 import ProfilePage from "./pages/ProfilePage";
-import ViewProfilePage from "./pages/ViewProfilePage";
 import FeedsPage from "./pages/FeedsPage";
 import { UserProvider } from "./contexts/UserProvider";
 import ProfileRoute from "./pages/ProfileRouter";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -39,8 +39,10 @@ function App() {
           </Route>
 
           <Route path="/profile/:user_id" element={<ProfileRoute />} />
+          <Route path="/about" element={<AboutPage />} />
 
           <Route path="*" element={<Page404 />}></Route>
+
         </Routes>{" "}
       </div>
     </UserProvider>

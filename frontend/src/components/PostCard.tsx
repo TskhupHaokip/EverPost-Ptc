@@ -61,6 +61,7 @@ const PostCard = ({ Post, isOwnPost }: PostCardProps) => {
           num_of_likes={numLikes}
           num_of_comments={12}
           UserLikeData={UserLikeData}
+          PostID={Post.id}
         />
       </article>
     </PostContext.Provider>

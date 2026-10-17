@@ -3,7 +3,6 @@ import ApiClient from "../../ApiClient";
 import { REFRESH_TOKEN } from "../../constants";
 import SignUp from "../forms/SignUp";
 
-
 const ClientLogout = async () => {
   const rf_token = localStorage.getItem(REFRESH_TOKEN);
 
@@ -31,6 +30,6 @@ export const Logout = () => {
 
 
 export const RegisterLogout = () => {
-  ClientLogout()
+  // ClientLogout()
   return <SignUp />;
 };
